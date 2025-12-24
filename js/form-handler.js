@@ -1,5 +1,5 @@
 // form-handler.js
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz9zg5xZHCmkgxUORrnkesePvaCyYPglf6-h5KdSQnjTlSNHL7ijtCpsvR15t9EZodxLg/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvpCBufsXlcl8g38PgiT9B1Lne6b_xHeEbaqBC0P5oZCIzTyu9YxQQn6v7ItGQjDolIw/exec";
 
 document.getElementById('eventForm')?.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -34,4 +34,5 @@ document.getElementById('eventForm')?.addEventListener('submit', function(e) {
         submitBtn.disabled = false;
         submitBtn.innerText = "Publier l'événement";
     });
+
 });
