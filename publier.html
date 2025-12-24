@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publier un Événement | EventHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root { --primary-color: #007bff; --secondary-color: #6c757d; --dark-blue: #0a192f; }
+        body { font-family: 'Poppins', sans-serif; color: #333; overflow-x: hidden; background-color: #f8f9fa; }
+        .navbar { background: rgba(10, 25, 47, 0.95) !important; backdrop-filter: blur(10px); }
+        .publish-hero { 
+            background: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.8)), url('https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1000');
+            background-size: cover; height: 300px; display: flex; align-items: center; justify-content: center; color: white; border-radius: 0 0 50px 50px;
+        }
+        .form-container { background: white; border-radius: 20px; padding: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); margin-top: -80px; margin-bottom: 50px; }
+        footer { background: #0a192f; color: #8b96a7; padding: 60px 0 20px; }
+        footer h5 { color: white; font-weight: 700; margin-bottom: 20px; }
+        footer a { color: #8b96a7; text-decoration: none; transition: 0.3s; }
+        footer a:hover { color: var(--primary-color); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-3" href="index.html"><i class="fa-solid fa-bolt-lightning text-primary me-2"></i>EventHub</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="evenements.html">Événements</a></li>
+                <li class="nav-item ms-lg-3">
+                    <a class="btn btn-primary px-4 rounded-pill fw-bold" href="publier.html">Publier un Event</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <header class="publish-hero">
+        <h1 class="display-4 fw-bold" data-aos="fade-up">Annoncez votre Événement</h1>
+    </header>
+
+    <div class="container">
+        <div class="form-container" data-aos="zoom-in">
+            <form id="eventForm" class="row g-4">
+                <div class="col-md-12">
+                    <label class="form-label fw-bold">Nom de l'événement</label>
+                    <input type="text" class="form-control py-2" placeholder="Ex: Festival International de Porto-Novo" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Pays</label>
+                    <select id="countrySelect" class="form-select py-2" required>
+                        <option value="" selected disabled>Choisir un pays...</option>
+                        <option value="benin">🇧🇯 Bénin</option>
+                        <option value="togo">🇹🇬 Togo</option>
+                        <option value="ivoire">🇨🇮 Côte d'Ivoire</option>
+                        <option value="nigeria">🇳🇬 Nigeria</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Ville / Localité</label>
+                    <select id="citySelect" class="form-select py-2" required disabled>
+                        <option value="">Sélectionnez d'abord un pays</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Catégorie</label>
+                    <select class="form-select py-2">
+                        <option>Corporate & Business</option>
+                        <option>Événements Privés</option>
+                        <option>Culture & Divertissement</option>
+                        <option>Sports</option>
+                        <option>Caritatif</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Lien de l'image (URL)</label>
+                    <input type="url" class="form-control" placeholder="https://votre-image.com/affiche.jpg" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Lien d'inscription ou d'information (Optionnel)</label>
+                    <input type="url" class="form-control py-2" placeholder="https://site-web-ou-whatsapp.com/info">
+                    <div class="form-text">Laissez vide si vous n'avez pas de lien externe.</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Date</label>
+                    <input type="date" class="form-control py-2" required>
+                </div>
+
+                <div class="col-md-12 text-center mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill fw-bold">Publier l'événement</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fs-3"><i class="fa-solid fa-bolt-lightning text-primary me-2"></i>EventHub</h5>
+                    <p>La première plateforme de centralisation des événements en Afrique de l'Ouest. Simplifiez votre recherche, amplifiez votre visibilité.</p>
+                </div>
+                <div class="col-lg-2 offset-lg-1">
+                    <h5>Navigation</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="index.html#categories">Catégories</a></li>
+                        <li><a href="index.html#zones">Zones</a></li>
+                        <li><a href="publier.html">Publier</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5>Légal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Conditions</a></li>
+                        <li><a href="#">Confidentialité</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5>Newsletter</h5>
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-dark border-secondary text-white" placeholder="Email">
+                        <button class="btn btn-primary"><i class="fa fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-5 border-secondary text-center">
+            <p class="text-center small">&copy; 2025 EventHub Project. Développé par Flexitech.</p>
+        </div>
+    </footer>
+
+    <script>
+        const locations = {
+            benin: ["Cotonou", "Porto-Novo", "Abomey-Calavi", "Ouidah", "Parakou", "Djougou", "Natitingou", "Kandi", "Bohicon", "Abomey", "Dassa-Zoumé", "Savalou"],
+            togo: ["Lomé", "Tsévié", "Aného", "Atakpamé", "Kpalimé", "Sokodé", "Kara", "Dapaong"],
+            ivoire: ["Abidjan (Cocody)", "Abidjan (Plateau)", "Yamoussoukro", "Bouaké", "San-Pédro", "Korhogo", "Man", "Daloa"],
+            nigeria: ["Lagos", "Abuja", "Kano", "Ibadan", "Port Harcourt", "Benin City", "Kaduna", "Enugu"]
+        };
+
+        const countrySelect = document.getElementById('countrySelect');
+        const citySelect = document.getElementById('citySelect');
+
+        countrySelect.addEventListener('change', function() {
+            const selectedCountry = this.value;
+            citySelect.innerHTML = '<option value="" selected disabled>Choisir la ville...</option>';
+            
+            if (selectedCountry) {
+                citySelect.disabled = false;
+                locations[selectedCountry].forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            }
+        });
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1000 });</script>
+    <script src="js/form-handler.js"></script>
+</body>
+</html>

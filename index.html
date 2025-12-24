@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventHub | La Référence de l'Événementiel en Afrique de l'Ouest</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root { --primary-color: #007bff; --secondary-color: #6c757d; --dark-blue: #0a192f; }
+        body { font-family: 'Poppins', sans-serif; color: #333; overflow-x: hidden; }
+        
+        /* Glassmorphism Navbar */
+        .navbar { background: rgba(10, 25, 47, 0.95) !important; backdrop-filter: blur(10px); }
+        
+        /* Hero Section */
+        .hero { 
+            background: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.8)), 
+                        url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1600');
+            background-size: cover; background-position: center;
+            min-height: 90vh; display: flex; align-items: center; color: white;
+            border-radius: 0 0 10% 10% / 0 0 50px 50px;
+        }
+
+        .category-card { 
+            transition: all 0.3s ease; border: none; border-radius: 15px; 
+            background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .category-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .icon-box { width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 12px; margin-bottom: 15px; }
+
+        /* Country Tabs */
+        .nav-pills .nav-link.active { background-color: var(--primary-color); }
+        .city-tag { background: #e9ecef; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; display: inline-block; margin: 3px; }
+
+        footer { background: #0a192f; color: #8b96a7; padding: 60px 0 20px; }
+        footer h5 { color: white; font-weight: 700; margin-bottom: 20px; }
+        footer a { color: #8b96a7; text-decoration: none; transition: 0.3s; }
+        footer a:hover { color: var(--primary-color); }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-3" href="index.html"><i class="fa-solid fa-bolt-lightning text-primary me-2"></i>EventHub</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="evenements.html">Événements</a></li>
+                <li class="nav-item ms-lg-3">
+                    <a class="btn btn-primary px-4 rounded-pill fw-bold" href="publier.html">Publier un Event</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <header class="hero">
+        <div class="container text-center" data-aos="zoom-out">
+            <span class="badge bg-primary mb-3 px-3 py-2">MVP - Afrique de l'Ouest</span>
+            <h1 class="display-2 fw-bold mb-3">Toute l'actualité événementielle au <span class="text-primary">même endroit</span>.</h1>
+            <p class="lead mb-5 fs-4">Finie la dispersion sur les réseaux sociaux. Trouvez, filtrez et participez.</p>
+            
+            <div class="bg-white p-3 rounded-4 shadow-lg mx-auto" style="max-width: 900px;">
+                <div class="row g-2">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-text bg-transparent border-0"><i class="fa fa-search text-muted"></i></span>
+                            <input type="text" class="form-control border-0" placeholder="Quel événement cherchez-vous ?">
+                        </div>
+                    </div>
+                    <div class="col-md-4 border-start">
+                        <select class="form-select border-0">
+                            <option>Toutes les villes</option>
+                            <option>Cotonou (Bénin)</option>
+                            <option>Lomé (Togo)</option>
+                            <option>Abidjan (CI)</option>
+                            <option>Lagos (Nigeria)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary w-100 py-3 rounded-3 fw-bold">Explorer maintenant</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="pourquoi" class="py-5 mt-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h2 class="display-5 fw-bold mb-4">Pourquoi <span class="text-primary">EventHub</span> ?</h2>
+                    <p class="text-muted fs-5">Le constat est simple : des centaines de formations, concerts et opportunités se perdent dans le flux continu des réseaux sociaux. Les informations sont dispersées, incomplètes ou arrivent trop tard.</p>
+                    <ul class="list-unstyled mt-4">
+                        <li class="mb-3"><i class="fa-solid fa-circle-check text-success me-2"></i> <strong>Centralisation :</strong> Un seul point d'entrée pour tout.</li>
+                        <li class="mb-3"><i class="fa-solid fa-circle-check text-success me-2"></i> <strong>Visibilité Locale :</strong> Mise en avant des talents de votre région.</li>
+                        <li class="mb-3"><i class="fa-solid fa-circle-check text-success me-2"></i> <strong>Accessibilité :</strong> Des filtres intelligents par ville et date.</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="bg-light p-5 rounded-5 border-start border-primary border-5">
+                        <h4 class="fw-bold mb-3">Comment ça marche ?</h4>
+                        <div class="d-flex mb-4">
+                            <div class="h1 fw-bold text-primary me-3">01</div>
+                            <div><h5>Parcourez</h5><p class="text-muted">Explorez les événements par catégories ou zones géographiques.</p></div>
+                        </div>
+                        <div class="d-flex mb-4">
+                            <div class="h1 fw-bold text-primary me-3">02</div>
+                            <div><h5>Filtrez</h5><p class="text-muted">Utilisez nos outils pour trouver ce qui correspond à votre agenda.</p></div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="h1 fw-bold text-primary me-3">03</div>
+                            <div><h5>Participez</h5><p class="text-muted">Obtenez les détails, inscrivez-vous et soyez au rendez-vous.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="categories" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold">Explorez par Catégories</h2>
+                <p class="text-muted">Un univers d'opportunités s'offre à vous</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="flip-left">
+                    <div class="card category-card p-4 h-100">
+                        <div class="icon-box bg-primary-subtle text-primary fs-3"><i class="fa-solid fa-briefcase"></i></div>
+                        <h5 class="fw-bold">Corporate & Business</h5>
+                        <p class="small text-muted">Séminaires, Team Building, Conférences, Salons B2B et Lancements de produits.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="flip-left" data-aos-delay="100">
+                    <div class="card category-card p-4 h-100">
+                        <div class="icon-box bg-danger-subtle text-danger fs-3"><i class="fa-solid fa-heart"></i></div>
+                        <h5 class="fw-bold">Événements Privés</h5>
+                        <p class="small text-muted">Mariages, Anniversaires, Baptêmes et Réunions de famille.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="flip-left" data-aos-delay="200">
+                    <div class="card category-card p-4 h-100">
+                        <div class="icon-box bg-warning-subtle text-warning fs-3"><i class="fa-solid fa-masks-theater"></i></div>
+                        <h5 class="fw-bold">Culture & Divertissement</h5>
+                        <p class="small text-muted">Festivals, Concerts, Spectacles, Expositions et Carnavals.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="flip-left" data-aos-delay="300">
+                    <div class="card category-card p-4 h-100">
+                        <div class="icon-box bg-success-subtle text-success fs-3"><i class="fa-solid fa-trophy"></i></div>
+                        <h5 class="fw-bold">Sports</h5>
+                        <p class="small text-muted">Compétitions, Tournois, Courses caritatives et Galas sportifs.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="flip-left" data-aos-delay="400">
+                    <div class="card category-card p-4 h-100">
+                        <div class="icon-box bg-info-subtle text-info fs-3"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                        <h5 class="fw-bold">Caritatif & Associatif</h5>
+                        <p class="small text-muted">Galas de charité, Ventes aux enchères, Conférences de sensibilisation.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="flip-left" data-aos-delay="500">
+                    <div class="card category-card p-4 h-100 bg-dark text-white">
+                        <h5 class="fw-bold"><i class="fa-solid fa-globe me-2"></i>Formats Disponibles</h5>
+                        <ul class="small list-unstyled mt-3">
+                            <li class="mb-2">📍 <strong>Présentiel :</strong> Interaction physique.</li>
+                            <li class="mb-2">💻 <strong>Virtuel :</strong> Webinaire & Streaming.</li>
+                            <li class="mb-2">🌗 <strong>Hybride :</strong> Le meilleur des deux mondes.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <<section id="zones" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bold">Couverture Géographique</h2>
+            <p class="text-muted">L'accès à l'information partout, du village à la métropole.</p>
+        </div>
+
+        <ul class="nav nav-pills mb-4 justify-content-center" id="countryTabs" role="tablist">
+            <li class="nav-item"><button class="nav-link active fw-bold" data-bs-toggle="pill" data-bs-target="#benin">🇧🇯 Bénin</button></li>
+            <li class="nav-item"><button class="nav-link fw-bold" data-bs-toggle="pill" data-bs-target="#togo">🇹🇬 Togo</button></li>
+            <li class="nav-item"><button class="nav-link fw-bold" data-bs-toggle="pill" data-bs-target="#ivoire">🇨🇮 Côte d'Ivoire</button></li>
+            <li class="nav-item"><button class="nav-link fw-bold" data-bs-toggle="pill" data-bs-target="#nigeria">🇳🇬 Nigeria</button></li>
+        </ul>
+
+        <div class="tab-content bg-white p-4 rounded-4 shadow-sm border" data-aos="fade-up">
+            <div class="tab-pane fade show active" id="benin">
+                <h5 class="fw-bold text-primary mb-3">Les 77 Communes du Bénin</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6>Sud (Atlantique, Littoral, Ouémé, etc.)</h6>
+                        <div class="city-container">
+                            <span class="city-tag">Cotonou</span><span class="city-tag">Porto-Novo</span><span class="city-tag">Abomey-Calavi</span><span class="city-tag">Ouidah</span><span class="city-tag">Sèmè-Kpodji</span><span class="city-tag">Allada</span><span class="city-tag">Akpro-Missérété</span><span class="city-tag">Avrankou</span><span class="city-tag">Adjarra</span><span class="city-tag">Bonou</span><span class="city-tag">Dangbo</span><span class="city-tag">Aguégués</span><span class="city-tag">Toffo</span><span class="city-tag">Zè</span><span class="city-tag">Tori-Bossito</span><span class="city-tag">Kpomassé</span><span class="city-tag">Athiémé</span><span class="city-tag">Grand-Popo</span><span class="city-tag">Comè</span><span class="city-tag">Houéyogbé</span><span class="city-tag">Lokossa</span><span class="city-tag">Bopa</span><span class="city-tag">Possotomé</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Centre (Zou, Collines, Plateau)</h6>
+                        <div class="city-container">
+                            <span class="city-tag">Abomey</span><span class="city-tag">Bohicon</span><span class="city-tag">Dassa-Zoumé</span><span class="city-tag">Savalou</span><span class="city-tag">Savé</span><span class="city-tag">Glazoué</span><span class="city-tag">Bantè</span><span class="city-tag">Ouèssè</span><span class="city-tag">Agbangnizoun</span><span class="city-tag">Djidja</span><span class="city-tag">Zogbodomey</span><span class="city-tag">Za-Kpota</span><span class="city-tag">Zagnanado</span><span class="city-tag">Covè</span><span class="city-tag">Ouinhi</span><span class="city-tag">Kétou</span><span class="city-tag">Pobè</span><span class="city-tag">Sakété</span><span class="city-tag">Adja-Ouèrè</span><span class="city-tag">Itou-Takite</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Nord (Borgou, Alibori, Atacora, Donga)</h6>
+                        <div class="city-container">
+                            <span class="city-tag">Parakou</span><span class="city-tag">Djougou</span><span class="city-tag">Natitingou</span><span class="city-tag">Kandi</span><span class="city-tag">Malanville</span><span class="city-tag">Banikoara</span><span class="city-tag">Nikki</span><span class="city-tag">Bembèrèkè</span><span class="city-tag">Tchaourou</span><span class="city-tag">Bassila</span><span class="city-tag">Copargo</span><span class="city-tag">Ouaké</span><span class="city-tag">Boukoumbé</span><span class="city-tag">Tanguiéta</span><span class="city-tag">Matéri</span><span class="city-tag">Cobly</span><span class="city-tag">Karimama</span><span class="city-tag">Gogounou</span><span class="city-tag">Segbana</span><span class="city-tag">Sinendé</span><span class="city-tag">Kalalé</span><span class="city-tag">Péhunco</span><span class="city-tag">Kérou</span><span class="city-tag">Kouandé</span><span class="city-tag">Birni</span><span class="city-tag">Toucountouna</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="togo">
+                <h5 class="fw-bold text-primary mb-3">Régions et Pôles Urbains</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Maritime & Plateaux</h6>
+                        <div class="city-container">
+                            <span class="city-tag">Lomé</span><span class="city-tag">Tsévié</span><span class="city-tag">Aného</span><span class="city-tag">Tabligbo</span><span class="city-tag">Vogan</span><span class="city-tag">Assahoun</span><span class="city-tag">Atakpamé</span><span class="city-tag">Kpalimé</span><span class="city-tag">Notsé</span><span class="city-tag">Badou</span><span class="city-tag">Agou</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Centrale, Kara & Savanes</h6>
+                        <div class="city-container">
+                            <span class="city-tag">Sokodé</span><span class="city-tag">Tchamba</span><span class="city-tag">Sotouboua</span><span class="city-tag">Kara</span><span class="city-tag">Bafilo</span><span class="city-tag">Bassar</span><span class="city-tag">Niamtougou</span><span class="city-tag">Dapaong</span><span class="city-tag">Mango</span><span class="city-tag">Mandouri</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="ivoire">
+                <h5 class="fw-bold text-primary mb-3">Principales Communes (Zone sur 201)</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6>Sud & Littoral</h6>
+                        <div class="city-container">
+                            <span class="city-tag">Abidjan (Cocody)</span><span class="city-tag">Plateau</span><span class="city-tag">Abobo</span><span class="city-tag">Yopougon</span><span class="city-tag">Grand-Bassam</span><span class="city-tag">San-Pédro</span><span class="city-tag">Dabou</span><span class="city-tag">Aboisso</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Centre & Ouest</h6>
+                        <div class="city-container">
+                            <span class="city-tag">Yamoussoukro</span><span class="city-tag">Bouaké</span><span class="city-tag">Dimbokro</span><span class="city-tag">Daoukro</span><span class="city-tag">Man</span><span class="city-tag">Daloa</span><span class="city-tag">Gagnoa</span><span class="city-tag">Soubré</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Nord & Est</h6>
+                        <div class="city-container">
+                            <span class="city-tag">Korhogo</span><span class="city-tag">Ferkessédougou</span><span class="city-tag">Odienné</span><span class="city-tag">Boundiali</span><span class="city-tag">Katiola</span><span class="city-tag">Abengourou</span><span class="city-tag">Bondoukou</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="nigeria">
+                <h5 class="fw-bold text-primary mb-3">Capitales d'États et Métropoles</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6>Sud-Ouest & Sud-Sud</h6>
+                        <div class="city-container">
+                            <span class="city-tag">Lagos</span><span class="city-tag">Ibadan</span><span class="city-tag">Abeokuta</span><span class="city-tag">Akure</span><span class="city-tag">Port Harcourt</span><span class="city-tag">Benin City</span><span class="city-tag">Calabar</span><span class="city-tag">Warri</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Nord & Abuja</h6>
+                        <div class="city-container">
+                            <span class="city-tag">Abuja</span><span class="city-tag">Kano</span><span class="city-tag">Kaduna</span><span class="city-tag">Sokoto</span><span class="city-tag">Ilorin</span><span class="city-tag">Jos</span><span class="city-tag">Maiduguri</span><span class="city-tag">Zaria</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Sud-Est & Centre</h6>
+                        <div class="city-container">
+                            <span class="city-tag">Enugu</span><span class="city-tag">Onitsha</span><span class="city-tag">Aba</span><span class="city-tag">Owerri</span><span class="city-tag">Minna</span><span class="city-tag">Lokoja</span><span class="city-tag">Makurdi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fs-3"><i class="fa-solid fa-bolt-lightning text-primary me-2"></i>EventHub</h5>
+                    <p>La première plateforme de centralisation des événements en Afrique de l'Ouest. Simplifiez votre recherche, amplifiez votre visibilité.</p>
+                </div>
+                <div class="col-lg-2 offset-lg-1">
+                    <h5>Navigation</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Accueil</a></li>
+                        <li><a href="#categories">Catégories</a></li>
+                        <li><a href="#zones">Zones</a></li>
+                        <li><a href="publier.html">Publier</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5>Légal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Conditions</a></li>
+                        <li><a href="#">Confidentialité</a></li>
+                        <li><a href="#">Aide</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5>Newsletter</h5>
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-dark border-secondary text-white" placeholder="Email">
+                        <button class="btn btn-primary"><i class="fa fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-5 border-secondary">
+            <div class="text-center small">
+                <p>&copy; 2025 EventHub Project. Développé par Flexitech.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+    </script>
+</body>
+</html>

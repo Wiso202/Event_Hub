@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Événements | EventHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary-color: #007bff; --dark-blue: #0a192f; }
+        body { font-family: 'Poppins', sans-serif; background-color: #f8f9fa; }
+        
+        /* Navbar style index.html */
+        .navbar { background: rgba(10, 25, 47, 0.95) !important; backdrop-filter: blur(10px); }
+
+        /* Style Premium des cartes */
+        .event-card { 
+            border: none; border-radius: 20px; overflow: hidden; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .event-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+        .img-container { position: relative; height: 220px; overflow: hidden; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .event-card:hover .img-container img { scale: 1.1; }
+        
+        /* Badge flottant */
+        .category-badge {
+            position: absolute; top: 15px; left: 15px;
+            background: rgba(255, 255, 255, 0.9); color: var(--primary-color);
+            padding: 5px 15px; border-radius: 20px; font-weight: 600; font-size: 0.8rem;
+        }
+
+        footer { background: #0a192f; color: #8b96a7; padding: 60px 0 20px; }
+        footer h5 { color: white; font-weight: 700; }
+        footer a { color: #8b96a7; text-decoration: none; transition: 0.3s; }
+        footer a:hover { color: var(--primary-color); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="index.html"><i class="fa-solid fa-bolt-lightning text-primary me-2"></i>EventHub</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="evenements.html">Événements</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-primary px-4 rounded-pill fw-bold" href="publier.html">Publier un Event</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-down">
+            <h2 class="fw-bold display-5">Découvrez les <span class="text-primary">Événements</span></h2>
+            <p class="text-muted lead">Trouvez l'inspiration pour votre prochaine sortie.</p>
+        </div>
+
+        <div class="row g-4" id="eventsGrid">
+            <div class="col-md-4" data-aos="fade-up">
+                <div class="card event-card h-100">
+                    <div class="img-container">
+                        <span class="category-badge shadow-sm">Culture & Loisirs</span>
+                        <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=800" alt="Event">
+                    </div>
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-3">Festival Afro-Pop 2025</h5>
+                        <div class="d-flex align-items-center mb-2 text-muted small">
+                            <i class="fa-solid fa-location-dot text-primary me-2"></i>Cotonou, Bénin
+                        </div>
+                        <div class="d-flex align-items-center mb-4 text-muted small">
+                            <i class="fa-solid fa-calendar text-primary me-2"></i>15 Décembre 2025
+                        </div>
+                        <button class="btn btn-primary w-100 rounded-pill fw-bold py-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#detailsModal">
+                            Voir Détails
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 rounded-4 overflow-hidden shadow-lg">
+                <div class="modal-body p-0">
+                    <div class="row g-0">
+                        <div class="col-lg-5">
+                            <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=1200" class="h-100 w-100" style="object-fit: cover;">
+                        </div>
+                        <div class="col-lg-7 p-4 p-md-5">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <span class="badge bg-primary-subtle text-primary px-3 py-2">Culture & Divertissement</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <h2 class="fw-bold text-dark mb-4">Festival Afro-Pop 2025</h2>
+                            <div class="space-y-3">
+                                <p><i class="fa-solid fa-map-location-dot text-primary me-2"></i> <strong>Lieu:</strong> Esplanade du Palais des Congrès</p>
+                                <p><i class="fa-solid fa-clock text-primary me-2"></i> <strong>Heure:</strong> 18h00 - 02h00</p>
+                                <p class="text-muted small mt-4">Vivez une expérience musicale unique réunissant les meilleurs artistes de la sous-région dans un cadre festif.</p>
+                            </div>
+                            <a href="#" class="btn btn-dark btn-lg w-100 rounded-pill mt-5 fw-bold shadow">
+                                <i class="fa-solid fa-paper-plane me-2"></i>S'inscrire / Plus d'infos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row g-4 text-center text-md-start">
+                <div class="col-lg-4">
+                    <h5 class="fs-3"><i class="fa-solid fa-bolt-lightning text-primary me-2"></i>EventHub</h5>
+                    <p>La première plateforme de centralisation des événements en Afrique de l'Ouest. Simplifiez votre recherche, amplifiez votre visibilité.</p>
+                </div>
+                <div class="col-lg-2 offset-lg-1">
+                    <h5>Navigation</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="index.html#categories">Catégories</a></li>
+                        <li><a href="index.html#zones">Zones</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5>Légal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Conditions</a></li>
+                        <li><a href="#">Confidentialité</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5>Newsletter</h5>
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-dark border-secondary text-white" placeholder="Email">
+                        <button class="btn btn-primary"><i class="fa fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-5 border-secondary">
+            <p class="text-center small">&copy; 2025 EventHub Project. Développé par Flexitech.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1000, once: true });</script>
+    <script src="js/app.js"></script> 
+     <script src="js/filters.js"></script>
+</body>
+</html>
