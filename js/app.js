@@ -15,33 +15,29 @@ async function fetchEvents() {
     }
 }
 
+// js/app.js - Dans votre boucle de rendu (renderEvents)
+// Remplacez la source de l'image par ceci :
+
 function renderEvents(events) {
     const grid = document.getElementById('eventsGrid');
-    grid.innerHTML = events.map((event, index) => `
-        <div class="col-md-4" data-aos="fade-up">
-            <div class="card event-card h-100">
-                <div class="img-container">
-                    <span class="category-badge shadow-sm">${event.Categorie}</span>
-                    <img src="${event.ImageURL}" alt="${event.Nom}">
-                </div>
-                <div class="card-body p-4">
-                    <h5 class="fw-bold mb-3">${event.Nom}</h5>
-                    <div class="d-flex align-items-center mb-2 text-muted small">
-                        <i class="fa-solid fa-location-dot text-primary me-2"></i>${event.Ville}, ${event.Pays}
+    grid.innerHTML = events.map(event => {
+        // LIEN MAGIQUE POUR AFFICHER L'IMAGE DRIVE
+        const imgSrc = event.ImageID ? `https://lh3.googleusercontent.com/d/${event.ImageID}` : 'img/default.jpg';
+        
+        return `
+            <div class="col-md-4">
+                <div class="card event-card h-100">
+                    <div class="img-container">
+                        <img src="${imgSrc}" alt="${event.Nom}">
                     </div>
-                    <div class="d-flex align-items-center mb-4 text-muted small">
-                        <i class="fa-solid fa-calendar text-primary me-2"></i>${new Date(event.Date).toLocaleDateString('fr-FR')}
-                    </div>
-                    <button class="btn btn-primary w-100 rounded-pill fw-bold py-2 shadow-sm" 
-                            onclick="showDetails(${index})">
-                        Voir Détails
-                    </button>
+                    <div class="card-body">
+                        <h5>${event.Nom}</h5>
+                        </div>
                 </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
-
 function showDetails(index) {
     const event = allEvents[index];
     const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
@@ -69,5 +65,6 @@ function showDetails(index) {
     `;
     modal.show();
 }
+
 
 document.addEventListener('DOMContentLoaded', fetchEvents);
