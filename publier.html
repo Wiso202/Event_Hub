@@ -50,61 +50,60 @@
 
     <div class="container">
         <div class="form-container" data-aos="zoom-in">
-            <form id="eventForm" class="row g-4">
-    <div class="col-md-12">
-        <label class="form-label fw-bold">Nom de l'événement</label>
-        <input type="text" id="nomEvent" class="form-control py-2" placeholder="Ex: Festival International de Porto-Novo" required>
-    </div>
+           <form id="eventForm" class="row g-4">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Nom de l'événement</label>
+                            <input type="text" id="nomEvent" class="form-control py-2" placeholder="Ex: Concert de l'Indépendance" required>
+                        </div>
 
-    <div class="col-md-6">
-        <label class="form-label fw-bold">Pays</label>
-        <select id="countrySelect" class="form-select py-2" required>
-            <option value="" selected disabled>Choisir un pays...</option>
-            <option value="benin">🇧🇯 Bénin</option>
-            <option value="togo">🇹🇬 Togo</option>
-            <option value="ivoire">🇨🇮 Côte d'Ivoire</option>
-            <option value="nigeria">🇳🇬 Nigeria</option>
-        </select>
-    </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Pays</label>
+                            <select id="countrySelect" class="form-select py-2" required>
+                                <option value="" selected disabled>Choisir le pays...</option>
+                                <option value="benin">Bénin</option>
+                                <option value="togo">Togo</option>
+                                <option value="ivoire">Côte d'Ivoire</option>
+                                <option value="nigeria">Nigeria</option>
+                            </select>
+                        </div>
 
-    <div class="col-md-6">
-        <label class="form-label fw-bold">Ville / Localité</label>
-        <select id="citySelect" class="form-select py-2" required disabled>
-            <option value="">Sélectionnez d'abord un pays</option>
-        </select>
-    </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Ville</label>
+                            <select id="citySelect" class="form-select py-2" disabled required>
+                                <option value="" selected disabled>Choisir la ville...</option>
+                            </select>
+                        </div>
 
-    <div class="col-md-6">
-        <label class="form-label fw-bold">Catégorie</label>
-        <select id="catSelect" class="form-select py-2" required>
-            <option>Corporate & Business</option>
-            <option>Événements Privés</option>
-            <option>Culture & Divertissement</option>
-            <option>Sports</option>
-            <option>Caritatif</option>
-        </select>
-    </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Catégorie</label>
+                            <select id="catSelect" class="form-select py-2" required>
+                                <option>Corporate & Business</option>
+                                <option>Événements Privés</option>
+                                <option>Culture & Divertissement</option>
+                                <option>Sports</option>
+                                <option>Caritatif</option>
+                            </select>
+                        </div>
 
-    <div class="col-md-6">
-        <label class="form-label fw-bold">Affiche de l'événement (Photo)</label>
-        <input type="file" id="imageInput" class="form-control" accept="image/*" required>
-    </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Photo de l'affiche</label>
+                            <input type="file" id="imageInput" class="form-control py-2" accept="image/*" required>
+                        </div>
 
-    <div class="col-md-6">
-        <label class="form-label fw-bold">Lien d'inscription ou d'information (Optionnel)</label>
-        <input type="url" id="infoURL" class="form-control py-2" placeholder="https://site-web-ou-whatsapp.com/info">
-        <div class="form-text">Laissez vide si vous n'avez pas de lien externe.</div>
-    </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Lien d'inscription (Optionnel)</label>
+                            <input type="url" id="infoURL" class="form-control py-2" placeholder="https://...">
+                        </div>
 
-    <div class="col-md-6">
-        <label class="form-label fw-bold">Date</label>
-        <input type="date" id="dateEvent" class="form-control py-2" required>
-    </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Date</label>
+                            <input type="date" id="dateEvent" class="form-control py-2" required>
+                        </div>
 
-    <div class="col-md-12 text-center mt-4">
-        <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill fw-bold">Publier l'événement</button>
-    </div>
-</form>
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-primary w-100 py-3 fw-bold shadow-sm">Publier l'événement</button>
+                        </div>
+                    </form>
         </div>
     </div>
 
@@ -176,4 +175,5 @@
 </body>
 
 </html>
+
 
