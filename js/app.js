@@ -1,26 +1,47 @@
 // app.js
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz9zg5xZHCmkgxUORrnkesePvaCyYPglf6-h5KdSQnjTlSNHL7ijtCpsvR15t9EZodxLg/exec";
-let allEvents = [];
 
-async function fetchEvents() {
+async function loadEvents() {
     const grid = document.getElementById('eventsGrid');
     if (!grid) return;
 
     try {
         const response = await fetch(SCRIPT_URL);
-        allEvents = await response.json();
-        renderEvents(allEvents);
+        const events = await response.json();
+        renderEvents(events);
     } catch (error) {
-        grid.innerHTML = "<p class='text-center'>Erreur de chargement des données.</p>";
+        console.error("Erreur de chargement:", error);
+        grid.innerHTML = "<p class='text-center'>Erreur lors du chargement des données.</p>";
     }
 }
 
-// js/app.js - Dans votre boucle de rendu (renderEvents)
-// Remplacez la source de l'image par ceci :
-
 function renderEvents(events) {
     const grid = document.getElementById('eventsGrid');
+    
     grid.innerHTML = events.map(event => {
+        // URL corrigée pour afficher l'image stockée sur Google Drive
+        const imgSrc = event.ImageID 
+            ? `https://drive.google.com/uc?export=view&id=${event.ImageID}` 
+            : 'https://via.placeholder.com/400x250?text=No+Image';
+        
+        return `
+            <div class="col-md-4 mb-4">
+                <div class="card event-card h-100 shadow-sm border-0" style="border-radius: 15px; overflow: hidden;">
+                    <img src="${imgSrc}" class="card-img-top" alt="${event.Nom}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <span class="badge bg-primary mb-2">${event.Categorie}</span>
+                        <h5 class="fw-bold">${event.Nom}</h5>
+                        <p class="text-muted small mb-1"><i class="fas fa-map-marker-alt me-1"></i> ${event.Ville}, ${event.Pays.toUpperCase()}</p>
+                        <p class="text-muted small"><i class="fas fa-calendar-alt me-1"></i> ${new Date(event.Date).toLocaleDateString()}</p>
+                        ${event.InfoURL ? `<a href="${event.InfoURL}" target="_blank" class="btn btn-outline-primary btn-sm w-100 mt-2">S'inscrire</a>` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+document.addEventListener('DOMContentLoaded', loadEvents);nnerHTML = events.map(event => {
         // LIEN MAGIQUE POUR AFFICHER L'IMAGE DRIVE
         const imgSrc = event.ImageID ? `https://lh3.googleusercontent.com/d/${event.ImageID}` : 'img/default.jpg';
         
@@ -68,3 +89,4 @@ function showDetails(index) {
 
 
 document.addEventListener('DOMContentLoaded', fetchEvents);
+
