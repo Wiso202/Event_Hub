@@ -1,5 +1,5 @@
 // app.js
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz9zg5xZHCmkgxUORrnkesePvaCyYPglf6-h5KdSQnjTlSNHL7ijtCpsvR15t9EZodxLg/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGFIAdlb4lzJL0DUZZTVUopLNyXHh1f_aTT4EvUS1hT4MRv1raZOi3NdwWEn7fjg973A/exec";
 
 async function loadEvents() {
     const grid = document.getElementById('eventsGrid');
@@ -89,4 +89,5 @@ function showDetails(index) {
 
 
 document.addEventListener('DOMContentLoaded', fetchEvents);
+
 
