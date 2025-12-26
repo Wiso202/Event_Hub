@@ -10,22 +10,20 @@ document.getElementById('eventForm').addEventListener('submit', function(e) {
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn.innerText;
     
-    // Désactiver le bouton pendant l'envoi
     submitBtn.disabled = true;
     submitBtn.innerText = "Envoi en cours...";
 
-    // Collecte des données
+    // Récupération sécurisée par ID
     const formData = {
-        Nom: form.querySelector('input[placeholder*="Festival"]').value,
+        Nom: document.getElementById('eventNom').value,
         Pays: document.getElementById('countrySelect').value,
         Ville: document.getElementById('citySelect').value,
-        Categorie: form.querySelector('select:not(#countrySelect):not(#citySelect)').value,
-        ImageID: form.querySelector('input[type="url"][placeholder*="votre-image"]').value,
-        InfoURL: form.querySelector('input[type="url"][placeholder*="site-web"]').value || "N/A",
-        Date: form.querySelector('input[type="date"]').value
+        Categorie: document.getElementById('eventCategorie').value,
+        ImageID: document.getElementById('eventImage').value,
+        InfoURL: document.getElementById('eventInfoURL').value || "N/A",
+        Date: document.getElementById('eventDate').value
     };
 
-    // Envoi des données
     fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors', 
@@ -33,36 +31,25 @@ document.getElementById('eventForm').addEventListener('submit', function(e) {
         body: JSON.stringify(formData)
     })
     .then(() => {
-        // Message de succès stylé
-        displayMessage("Succès ! Votre événement a été publié avec succès et sera visible après modération.", "success");
+        displayMessage("Succès ! Votre événement a été publié avec succès.", "success");
         form.reset();
-        
-        // Réinitialisation du bouton et scroll vers le haut du formulaire
         submitBtn.disabled = false;
         submitBtn.innerText = originalBtnText;
-        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     })
     .catch(error => {
         console.error('Erreur:', error);
-        displayMessage("Désolé, une erreur est survenue. Veuillez réessayer plus tard.", "danger");
+        displayMessage("Une erreur est survenue lors de l'envoi.", "danger");
         submitBtn.disabled = false;
         submitBtn.innerText = originalBtnText;
     });
 });
 
-/**
- * Fonction pour afficher un message stylé en haut du formulaire
- * @param {string} message - Le texte à afficher
- * @param {string} type - 'success' ou 'danger' (classes Bootstrap)
- */
 function displayMessage(message, type) {
     const formContainer = document.querySelector('.form-container');
-    
-    // Supprimer une ancienne alerte si elle existe
     const existingAlert = document.querySelector('.alert-custom');
     if (existingAlert) existingAlert.remove();
 
-    // Création de l'élément d'alerte
     const alertDiv = document.createElement('div');
     alertDiv.className = `alert alert-${type} alert-dismissible fade show alert-custom shadow-sm`;
     alertDiv.role = 'alert';
@@ -72,10 +59,8 @@ function displayMessage(message, type) {
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     `;
 
-    // Insertion au début du container du formulaire
     formContainer.prepend(alertDiv);
 
-    // Auto-suppression après 8 secondes
     setTimeout(() => {
         if (alertDiv) {
             const bsAlert = new bootstrap.Alert(alertDiv);
