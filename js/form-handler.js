@@ -1,5 +1,5 @@
 // js/form-handler.js
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw0f6ule6d8AmcVumjfom1Z2Mj_RMZ9fUDjGltbJ9_1NXGV2wtgfqK34qtyyF8VEgbx/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGFIAdlb4lzJL0DUZZTVUopLNyXHh1f_aTT4EvUS1hT4MRv1raZOi3NdwWEn7fjg973A/exec";
 
 document.getElementById('eventForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -53,3 +53,4 @@ document.getElementById('eventForm').addEventListener('submit', function(e) {
     };
     reader.readAsDataURL(file);
 });
+
