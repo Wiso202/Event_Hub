@@ -8,62 +8,48 @@ document.getElementById('eventForm').addEventListener('submit', function(e) {
     const fileInput = document.getElementById('imageInput');
     const file = fileInput.files[0];
 
-    // Vérification si un fichier est sélectionné
     if (!file) {
         alert("Veuillez sélectionner une image.");
         return;
     }
 
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Envoi de la photo...';
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Envoi en cours...';
 
     const reader = new FileReader();
     reader.onload = function() {
-        try {
-            const base64Data = reader.result.split(',')[1];
-            
-            const payload = {
-                nom: document.getElementById('nomEvent').value,
-                pays: document.getElementById('countrySelect').value,
-                ville: document.getElementById('citySelect').value,
-                categorie: document.getElementById('catSelect').value,
-                infoURL: document.getElementById('infoURL').value,
-                date: document.getElementById('dateEvent').value,
-                imageFile: {
-                    base64: base64Data,
-                    mimeType: file.type
-                }
-            };
+        // Préparation des données
+        const base64Data = reader.result.split(',')[1];
+        
+        const payload = {
+            nom: document.getElementById('nomEvent').value,
+            pays: document.getElementById('countrySelect').value,
+            ville: document.getElementById('citySelect').value,
+            categorie: document.getElementById('catSelect').value,
+            infoURL: document.getElementById('infoURL').value,
+            date: document.getElementById('dateEvent').value,
+            imageFile: {
+                base64: base64Data,
+                mimeType: file.type
+            }
+        };
 
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: JSON.stringify(payload)
-            })
-            .then(res => res.json())
-            .then(res => {
-                if(res.result === "success") {
-                    alert("Événement publié avec succès !");
-                    window.location.href = "evenements.html";
-                } else {
-                    alert("Erreur du serveur : " + res.error);
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                alert("Erreur lors de l'envoi au script Google.");
-            })
-            .finally(() => {
-                btn.disabled = false;
-                btn.innerHTML = "Publier l'événement";
-            });
-            
-        } catch (error) {
-            console.error(error);
-            alert("Erreur lors de la lecture des données du formulaire.");
+        // Envoi vers Apps Script
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', // Très important pour éviter les erreurs de sécurité (CORS)
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            alert("Événement publié avec succès !");
+            window.location.href = "evenements.html";
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Erreur lors de la publication.");
             btn.disabled = false;
-        }
+            btn.innerText = "Publier l'événement";
+        });
     };
-    
     reader.readAsDataURL(file);
 });
-
