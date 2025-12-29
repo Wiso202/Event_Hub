@@ -27,65 +27,89 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div class="container">
-        <a class="navbar-brand fw-bold fs-3" href="index.html"><i class="fa-solid fa-bolt-lightning text-primary me-2"></i>EventHub</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
-                <li class="nav-item"><a class="nav-link" href="evenements.html">Événements</a></li>
-                <li class="nav-item ms-lg-3">
-                    <a class="btn btn-primary px-4 rounded-pill fw-bold" href="publier.html">Publier un Event</a>
-                </li>
-            </ul>
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="index.html"><i class="fa-solid fa-bolt-lightning text-primary me-2"></i>EventHub</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="evenements.html">Événements</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-primary px-4 rounded-pill fw-bold" href="publier.html">Publier un Event</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <header class="publish-hero">
         <h1 class="display-4 fw-bold" data-aos="fade-up">Annoncez votre Événement</h1>
     </header>
 
     <div class="container">
+        <div id="successMessage" class="alert alert-success d-none text-center mb-4 shadow-sm" data-aos="fade-down" style="border-radius: 15px;">
+            <i class="fa-solid fa-circle-check fs-3 mb-2"></i><br>
+            <strong>Félicitations !</strong> Votre événement a été publié avec succès dans notre base de données.
+        </div>
+
         <div class="form-container" data-aos="zoom-in">
-           <form id="eventForm" class="row g-4">
-                        <div class="col-md-12">
-    <label class="form-label fw-bold">Nom de l'événement</label>
-    <input type="text" id="eventNom" class="form-control py-2" placeholder="Ex: Festival International de Porto-Novo" required>
-</div>
+            <form id="eventForm" class="row g-4">
+                <div class="col-md-12">
+                    <label class="form-label fw-bold">Nom de l'événement</label>
+                    <input type="text" id="eventName" class="form-control py-2" placeholder="Ex: Festival International de Porto-Novo" required>
+                </div>
 
-<div class="col-md-6">
-    <label class="form-label fw-bold">Catégorie</label>
-    <select id="eventCategorie" class="form-select py-2">
-        <option>Corporate & Business</option>
-        <option>Événements Privés</option>
-        <option>Culture & Divertissement</option>
-        <option>Sports</option>
-        <option>Caritatif</option>
-    </select>
-</div>
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Pays</label>
+                    <select id="countrySelect" class="form-select py-2" required>
+                        <option value="" selected disabled>Choisir un pays...</option>
+                        <option value="benin">🇧🇯 Bénin</option>
+                        <option value="togo">🇹🇬 Togo</option>
+                        <option value="ivoire">🇨🇮 Côte d'Ivoire</option>
+                        <option value="nigeria">🇳🇬 Nigeria</option>
+                    </select>
+                </div>
 
-<div class="col-md-6">
-    <label class="form-label fw-bold">Lien de l'image (URL)</label>
-    <input type="url" id="eventImage" class="form-control" placeholder="https://votre-image.com/affiche.jpg" required>
-</div>
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Ville / Localité</label>
+                    <select id="citySelect" class="form-select py-2" required disabled>
+                        <option value="">Sélectionnez d'abord un pays</option>
+                    </select>
+                </div>
 
-<div class="col-md-6">
-    <label class="form-label fw-bold">Lien d'inscription ou d'information (Optionnel)</label>
-    <input type="url" id="eventInfoURL" class="form-control py-2" placeholder="https://site-web-ou-whatsapp.com/info">
-</div>
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Catégorie</label>
+                    <select id="categorySelect" class="form-select py-2">
+                        <option>Corporate & Business</option>
+                        <option>Événements Privés</option>
+                        <option>Culture & Divertissement</option>
+                        <option>Sports</option>
+                        <option>Caritatif</option>
+                    </select>
+                </div>
 
-<div class="col-md-6">
-    <label class="form-label fw-bold">Date</label>
-    <input type="date" id="eventDate" class="form-control py-2" required>
-</div>
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Affiche de l'événement (Image)</label>
+                    <input type="file" id="imageInput" class="form-control py-2" accept="image/*" required>
+                </div>
 
-                        <div class="col-12 mt-4">
-                            <button type="submit" class="btn btn-primary w-100 py-3 fw-bold shadow-sm">Publier l'événement</button>
-                        </div>
-                    </form>
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Lien d'inscription ou d'information (Optionnel)</label>
+                    <input type="url" id="infoUrl" class="form-control py-2" placeholder="https://site-web-ou-whatsapp.com/info">
+                    <div class="form-text">Laissez vide si vous n'avez pas de lien externe.</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Date</label>
+                    <input type="date" id="eventDate" class="form-control py-2" required>
+                </div>
+
+                <div class="col-md-12 text-center mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill fw-bold">Publier l'événement</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -125,38 +149,8 @@
         </div>
     </footer>
 
-    <script>
-        const locations = {
-            benin: ["Cotonou", "Porto-Novo", "Abomey-Calavi", "Ouidah", "Parakou", "Djougou", "Natitingou", "Kandi", "Bohicon", "Abomey", "Dassa-Zoumé", "Savalou"],
-            togo: ["Lomé", "Tsévié", "Aného", "Atakpamé", "Kpalimé", "Sokodé", "Kara", "Dapaong"],
-            ivoire: ["Abidjan (Cocody)", "Abidjan (Plateau)", "Yamoussoukro", "Bouaké", "San-Pédro", "Korhogo", "Man", "Daloa"],
-            nigeria: ["Lagos", "Abuja", "Kano", "Ibadan", "Port Harcourt", "Benin City", "Kaduna", "Enugu"]
-        };
-
-        const countrySelect = document.getElementById('countrySelect');
-        const citySelect = document.getElementById('citySelect');
-
-        countrySelect.addEventListener('change', function() {
-            const selectedCountry = this.value;
-            citySelect.innerHTML = '<option value="" selected disabled>Choisir la ville...</option>';
-            
-            if (selectedCountry) {
-                citySelect.disabled = false;
-                locations[selectedCountry].forEach(city => {
-                    const option = document.createElement('option');
-                    option.value = city;
-                    option.textContent = city;
-                    citySelect.appendChild(option);
-                });
-            }
-        });
-    </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>AOS.init({ duration: 1000 });</script>
-    <script src="js/form-handler.js"></script>
+    <script src="js/app.js"></script>
 </body>
-
 </html>
-
-
-
