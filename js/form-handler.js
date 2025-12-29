@@ -63,11 +63,24 @@ document.getElementById('eventForm').addEventListener('submit', function(e) {
         .then(res => res.text())
         .then(response => {
             if(response === "Success") {
-                // Afficher le message de réussite
-                msgDiv.classList.remove('d-none');
-                e.target.reset(); // Vider le formulaire
+                // 1. Sélectionner la boîte de message
+                const toast = document.getElementById('successToast');
+                
+                // 2. L'afficher avec une petite animation
+                toast.style.display = 'block';
+                toast.style.animation = 'fadeInDown 0.5s ease-out';
+
+                // 3. Vider le formulaire
+                e.target.reset();
                 citySelect.disabled = true;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // 4. La faire disparaître automatiquement après 5 secondes
+                setTimeout(() => {
+                    toast.style.animation = 'fadeOutUp 0.5s ease-in';
+                    setTimeout(() => {
+                        toast.style.display = 'none';
+                    }, 500); // Temps de l'animation de sortie
+                }, 5000); // Temps d'affichage (5000ms = 5s)
             } else {
                 alert("Erreur: " + response);
             }
@@ -84,4 +97,5 @@ document.getElementById('eventForm').addEventListener('submit', function(e) {
     
     reader.readAsDataURL(file);
 });
+
 
