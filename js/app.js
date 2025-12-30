@@ -1,93 +1,98 @@
-// app.js
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGFIAdlb4lzJL0DUZZTVUopLNyXHh1f_aTT4EvUS1hT4MRv1raZOi3NdwWEn7fjg973A/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzDNdnM2EowBfevbbwud2RlQSuFhuv157wLckILnVFNi4T2WqIODqMLdvEkYQyEBM7y/exec";
 
-async function loadEvents() {
+document.addEventListener('DOMContentLoaded', () => {
+    fetchEvents();
+});
+
+async function fetchEvents() {
     const grid = document.getElementById('eventsGrid');
-    if (!grid) return;
+    grid.innerHTML = '<div class="text-center w-100"><div class="spinner-border text-primary" role="status"></div><p>Chargement des événements...</p></div>';
 
     try {
         const response = await fetch(SCRIPT_URL);
         const events = await response.json();
-        renderEvents(events);
+        
+        const now = new Date();
+        now.setHours(0, 0, 0, 0); // On compare uniquement les dates, pas les heures
+
+        // Filtrer les événements : on garde ceux dont la date est >= aujourd'hui
+        const upcomingEvents = events.filter(event => {
+            const eventDate = new Date(event.Date);
+            return eventDate >= now;
+        });
+
+        displayEvents(upcomingEvents);
     } catch (error) {
-        console.error("Erreur de chargement:", error);
-        grid.innerHTML = "<p class='text-center'>Erreur lors du chargement des données.</p>";
+        console.error("Erreur lors de la récupération :", error);
+        grid.innerHTML = '<p class="text-center text-danger">Impossible de charger les événements pour le moment.</p>';
     }
 }
 
-function renderEvents(events) {
+function displayEvents(events) {
     const grid = document.getElementById('eventsGrid');
-    
-    grid.innerHTML = events.map(event => {
-        // URL corrigée pour afficher l'image stockée sur Google Drive
-        const imgSrc = event.ImageID 
-            ? `https://drive.google.com/uc?export=view&id=${event.ImageID}` 
-            : 'https://via.placeholder.com/400x250?text=No+Image';
-        
-        return `
-            <div class="col-md-4 mb-4">
-                <div class="card event-card h-100 shadow-sm border-0" style="border-radius: 15px; overflow: hidden;">
-                    <img src="${imgSrc}" class="card-img-top" alt="${event.Nom}" style="height: 200px; object-fit: cover;">
-                    <div class="card-body">
-                        <span class="badge bg-primary mb-2">${event.Categorie}</span>
-                        <h5 class="fw-bold">${event.Nom}</h5>
-                        <p class="text-muted small mb-1"><i class="fas fa-map-marker-alt me-1"></i> ${event.Ville}, ${event.Pays.toUpperCase()}</p>
-                        <p class="text-muted small"><i class="fas fa-calendar-alt me-1"></i> ${new Date(event.Date).toLocaleDateString()}</p>
-                        ${event.InfoURL ? `<a href="${event.InfoURL}" target="_blank" class="btn btn-outline-primary btn-sm w-100 mt-2">S'inscrire</a>` : ''}
-                    </div>
-                </div>
-            </div>
-        `;
-    }).join('');
-}
+    grid.innerHTML = ''; // On vide le loader
 
-document.addEventListener('DOMContentLoaded', loadEvents);nnerHTML = events.map(event => {
-        // LIEN MAGIQUE POUR AFFICHER L'IMAGE DRIVE
-        const imgSrc = event.ImageID ? `https://lh3.googleusercontent.com/d/${event.ImageID}` : 'img/default.jpg';
-        
-        return `
-            <div class="col-md-4">
+    if (events.length === 0) {
+        grid.innerHTML = '<div class="col-12 text-center text-muted"><p>Aucun événement à venir pour le moment.</p></div>';
+        return;
+    }
+
+    events.forEach((event, index) => {
+        const dateFormatted = new Date(event.Date).toLocaleDateString('fr-FR', {
+            day: 'numeric', month: 'long', year: 'numeric'
+        });
+
+        const cardHTML = `
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="${index * 100}">
                 <div class="card event-card h-100">
                     <div class="img-container">
-                        <img src="${imgSrc}" alt="${event.Nom}">
+                        <span class="category-badge shadow-sm">${event.Categorie}</span>
+                        <img src="${event.ImageID}" alt="${event.Nom}" onerror="this.src='https://via.placeholder.com/800x500?text=Image+non+disponible'">
                     </div>
-                    <div class="card-body">
-                        <h5>${event.Nom}</h5>
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-3">${event.Nom}</h5>
+                        <div class="d-flex align-items-center mb-2 text-muted small">
+                            <i class="fa-solid fa-location-dot text-primary me-2"></i>${event.Ville}, ${event.Pays}
                         </div>
+                        <div class="d-flex align-items-center mb-4 text-muted small">
+                            <i class="fa-solid fa-calendar text-primary me-2"></i>${dateFormatted}
+                        </div>
+                        <button class="btn btn-primary w-100 rounded-pill fw-bold py-2 shadow-sm" 
+                                onclick="openModal('${encodeURIComponent(JSON.stringify(event))}')">
+                            Voir Détails
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
-    }).join('');
+        grid.innerHTML += cardHTML;
+    });
 }
-function showDetails(index) {
-    const event = allEvents[index];
+
+// Fonction pour remplir et ouvrir le modal
+function openModal(encodedEvent) {
+    const event = JSON.parse(decodeURIComponent(encodedEvent));
     const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
     
-    // Mise à jour dynamique de la pop-up
-    const modalBody = document.querySelector('#detailsModal .modal-body');
-    modalBody.innerHTML = `
-        <div class="row g-0">
-            <div class="col-lg-5">
-                <img src="${event.ImageURL}" class="h-100 w-100" style="object-fit: cover; min-height: 300px;">
-            </div>
-            <div class="col-lg-7 p-4 p-md-5">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                    <span class="badge bg-primary-subtle text-primary px-3 py-2">${event.Categorie}</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <h2 class="fw-bold text-dark mb-4">${event.Nom}</h2>
-                <div class="space-y-3">
-                    <p><i class="fa-solid fa-map-location-dot text-primary me-2"></i> <strong>Lieu:</strong> ${event.Ville}, ${event.Pays}</p>
-                    <p><i class="fa-solid fa-calendar text-primary me-2"></i> <strong>Date:</strong> ${new Date(event.Date).toLocaleDateString('fr-FR')}</p>
-                </div>
-                ${event.InfoURL ? `<a href="${event.InfoURL}" target="_blank" class="btn btn-dark btn-lg w-100 rounded-pill mt-5 fw-bold shadow">Accéder aux infos</a>` : ''}
-            </div>
-        </div>
-    `;
+    const modalImg = document.querySelector('#detailsModal img');
+    const modalTitle = document.querySelector('#detailsModal h2');
+    const modalBadge = document.querySelector('#detailsModal .badge');
+    const modalLocation = document.querySelector('#detailsModal .fa-map-location-dot').parentNode;
+    const modalDate = document.querySelector('#detailsModal .fa-clock').parentNode;
+    const modalInfoBtn = document.querySelector('#detailsModal a.btn-dark');
+
+    modalImg.src = event.ImageID;
+    modalTitle.innerText = event.Nom;
+    modalBadge.innerText = event.Categorie;
+    modalLocation.innerHTML = `<i class="fa-solid fa-map-location-dot text-primary me-2"></i> <strong>Lieu:</strong> ${event.Ville}, ${event.Pays}`;
+    modalDate.innerHTML = `<i class="fa-solid fa-clock text-primary me-2"></i> <strong>Date:</strong> ${new Date(event.Date).toLocaleDateString('fr-FR')}`;
+    
+    if(event.InfoURL) {
+        modalInfoBtn.href = event.InfoURL;
+        modalInfoBtn.style.display = 'block';
+    } else {
+        modalInfoBtn.style.display = 'none';
+    }
+
     modal.show();
 }
-
-
-document.addEventListener('DOMContentLoaded', fetchEvents);
-
-
