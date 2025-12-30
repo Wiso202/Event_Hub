@@ -1,5 +1,9 @@
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzWYHDVEVHkuc2x1XDHNxwJ9Y_yr_SbpWApNhFdf6CUkWgngv1PbKabwx4e-VtFwL0n/exec";
-
+/**
+ * Configuration de l'URL de votre application Web Google Apps Script
+ * Assurez-vous d'avoir déployé le script en mode "Anyone" (Tout le monde)
+ */
+const SCRIPT_URL = "VOTRE_URL_DE_DEPLOIEMENT_ICI";
 
 // Variables d'état pour la pagination
 let allEvents = [];
@@ -9,42 +13,9 @@ const itemsPerPage = 6;
 /**
  * Initialisation au chargement du DOM
  */
-// ... (vos variables globales SCRIPT_URL, allEvents, etc.)
-
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. On vérifie d'abord s'il y a des paramètres dans l'URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const queryParam = urlParams.get('q');
-    const cityParam = urlParams.get('city');
-
-    // 2. On charge les événements
-    fetchEvents().then(() => {
-        // 3. Si des paramètres existent, on applique le filtre immédiatement
-        if (queryParam || cityParam) {
-            if (queryParam) document.getElementById('searchInput').value = queryParam;
-            
-            applyUrlFilters(queryParam, cityParam);
-        }
-    });
-
-    setupSearch();
+    fetchEvents();
 });
-
-// Nouvelle fonction pour appliquer les filtres venant de l'index
-function applyUrlFilters(q, city) {
-    filteredEvents = allEvents.filter(event => {
-        const matchQuery = q ? (
-            event.nom.toLowerCase().includes(q.toLowerCase()) || 
-            event.categorie.toLowerCase().includes(q.toLowerCase())
-        ) : true;
-        
-        const matchCity = city ? event.ville.toLowerCase().includes(city.toLowerCase()) : true;
-        
-        return matchQuery && matchCity;
-    });
-    
-    displayPage(1);
-}
 
 /**
  * Récupère les données depuis Google Sheets via Apps Script
