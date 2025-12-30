@@ -1,9 +1,4 @@
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzWYHDVEVHkuc2x1XDHNxwJ9Y_yr_SbpWApNhFdf6CUkWgngv1PbKabwx4e-VtFwL0n/exec";
-/**
- * Configuration de l'URL de votre application Web Google Apps Script
- * Assurez-vous d'avoir déployé le script en mode "Anyone" (Tout le monde)
- */
-const SCRIPT_URL = "VOTRE_URL_DE_DEPLOIEMENT_ICI";
 
 // Variables d'état pour la pagination
 let allEvents = [];
@@ -192,6 +187,7 @@ function formatDate(dateStr) {
         year: 'numeric'
     });
 }
+
 
 
 
