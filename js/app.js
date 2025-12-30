@@ -1,4 +1,4 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzDNdnM2EowBfevbbwud2RlQSuFhuv157wLckILnVFNi4T2WqIODqMLdvEkYQyEBM7y/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzWYHDVEVHkuc2x1XDHNxwJ9Y_yr_SbpWApNhFdf6CUkWgngv1PbKabwx4e-VtFwL0n/exec";
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -91,4 +91,5 @@ function showDetails(event) {
     const myModal = new bootstrap.Modal(document.getElementById('detailsModal'));
     myModal.show();
 }
+
 
