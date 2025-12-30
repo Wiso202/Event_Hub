@@ -6,25 +6,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function fetchEvents() {
     const grid = document.getElementById('eventsGrid');
-    grid.innerHTML = '<div class="text-center w-100"><div class="spinner-border text-primary" role="status"></div><p>Chargement des événements...</p></div>';
+    grid.innerHTML = '<div class="text-center w-100"><div class="spinner-border text-primary"></div></div>';
 
     try {
-        const response = await fetch(SCRIPT_URL);
+        // Ajout de redirect: 'follow' pour s'assurer que le navigateur suit le lien de Google
+        const response = await fetch(SCRIPT_URL, {
+            method: 'GET',
+            redirect: 'follow'
+        });
+
+        if (!response.ok) throw new Error('Erreur réseau');
+
         const events = await response.json();
         
+        // ... (le reste de votre code pour filtrer et afficher) ...
         const now = new Date();
-        now.setHours(0, 0, 0, 0); // On compare uniquement les dates, pas les heures
+        now.setHours(0, 0, 0, 0);
 
-        // Filtrer les événements : on garde ceux dont la date est >= aujourd'hui
         const upcomingEvents = events.filter(event => {
+            if (!event.Date) return false;
             const eventDate = new Date(event.Date);
             return eventDate >= now;
         });
 
         displayEvents(upcomingEvents);
+
     } catch (error) {
         console.error("Erreur lors de la récupération :", error);
-        grid.innerHTML = '<p class="text-center text-danger">Impossible de charger les événements pour le moment.</p>';
+        grid.innerHTML = '<p class="text-center text-danger">Erreur de connexion aux données. Vérifiez le déploiement du script.</p>';
     }
 }
 
@@ -96,3 +105,4 @@ function openModal(encodedEvent) {
 
     modal.show();
 }
+
