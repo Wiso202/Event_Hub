@@ -26,7 +26,7 @@ countrySelect.addEventListener('change', function() {
 });
 
 // LOGIQUE D'ENVOI VERS GOOGLE SHEETS
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzDNdnM2EowBfevbbwud2RlQSuFhuv157wLckILnVFNi4T2WqIODqMLdvEkYQyEBM7y/exec"; // Collez ici l'URL obtenue lors du déploiement
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzWYHDVEVHkuc2x1XDHNxwJ9Y_yr_SbpWApNhFdf6CUkWgngv1PbKabwx4e-VtFwL0n/exec"; // Collez ici l'URL obtenue lors du déploiement
 
 document.getElementById('eventForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -97,5 +97,6 @@ document.getElementById('eventForm').addEventListener('submit', function(e) {
     
     reader.readAsDataURL(file);
 });
+
 
 
