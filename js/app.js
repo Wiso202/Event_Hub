@@ -91,3 +91,4 @@ function showDetails(event) {
     const myModal = new bootstrap.Modal(document.getElementById('detailsModal'));
     myModal.show();
 }
+
