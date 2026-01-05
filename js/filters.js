@@ -10,7 +10,6 @@ function applyFilters() {
     const filteredResults = allEvents.filter(event => {
         const matchesName = event.nom.toLowerCase().includes(searchVal);
         const matchesCountry = countryVal === "" || event.pays.toLowerCase() === countryVal;
-        const matchesCategory = categoryVal === "" || event.categorie === categoryVal;
         return matchesName && matchesCountry && matchesCategory;
     });
 
@@ -89,4 +88,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
 
