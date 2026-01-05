@@ -10,6 +10,7 @@ function applyFilters() {
     const filteredResults = allEvents.filter(event => {
         const matchesName = event.nom.toLowerCase().includes(searchVal);
         const matchesCountry = countryVal === "" || event.pays.toLowerCase() === countryVal;
+        const matchesCategory = categoryVal === "" || event.categorie === categoryVal;
         return matchesName && matchesCountry && matchesCategory;
     });
 
@@ -53,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+
 function showLegal(type) {
     const title = type === 'terms' ? "Conditions Générales d'Utilisation" : "Politique de Confidentialité";
     const content = type === 'terms' ? 
@@ -88,5 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
 
 
