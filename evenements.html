@@ -48,14 +48,25 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="evenements.html">Événements</a></li>
-                    <li class="nav-item ms-lg-3">
-                        <a class="btn btn-primary px-4 rounded-pill fw-bold" href="publier.html">Publier un Event</a>
-                    </li>
-                </ul>
-            </div>
+    <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="index.html" data-key="navHome">Accueil</a></li>
+        <li class="nav-item"><a class="nav-link" href="evenements.html" data-key="navEvents">Événements</a></li>
+        
+        <li class="nav-item dropdown ms-lg-3">
+            <a class="nav-link dropdown-toggle btn btn-outline-light btn-sm px-2 rounded-pill" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="fa-solid fa-globe"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                <li><a class="dropdown-item" href="#" onclick="switchLanguage('fr')">🇫🇷 Français</a></li>
+                <li><a class="dropdown-item" href="#" onclick="switchLanguage('en')">🇳🇬 English</a></li>
+            </ul>
+        </li>
+
+        <li class="nav-item ms-lg-3">
+            <a class="btn btn-primary px-4 rounded-pill fw-bold" href="publier.html" data-key="navPublish">Publier un Event</a>
+        </li>
+    </ul>
+</div>
         </div>
     </nav>
 
@@ -191,6 +202,7 @@
      <script src="js/filters.js"></script>
 </body>
 </html>
+
 
 
 
