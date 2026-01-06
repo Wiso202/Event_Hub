@@ -1,9 +1,24 @@
 // Configuration des lieux (Pays et Villes)
 const locations = {
-    benin: ["Cotonou", "Porto-Novo", "Abomey-Calavi", "Ouidah", "Parakou", "Djougou", "Natitingou", "Kandi", "Bohicon", "Abomey", "Dassa-Zoumé", "Savalou"],
-    togo: ["Lomé", "Tsévié", "Aného", "Atakpamé", "Kpalimé", "Sokodé", "Kara", "Dapaong"],
-    ivoire: ["Abidjan (Cocody)", "Abidjan (Plateau)", "Yamoussoukro", "Bouaké", "San-Pédro", "Korhogo", "Man", "Daloa"],
-    nigeria: ["Lagos", "Abuja", "Kano", "Ibadan", "Port Harcourt", "Benin City", "Kaduna", "Enugu"]
+    benin: [
+        "Cotonou", "Porto-Novo", "Abomey-Calavi", "Ouidah", "Sèmè-Kpodji", "Allada", "Akpro-Missérété", "Avrankou", "Adjarra", "Bonou", "Dangbo", "Aguégués", "Toffo", "Zè", "Tori-Bossito", "Kpomassé", "Athiémé", "Grand-Popo", "Comè", "Houéyogbé", "Lokossa", "Bopa", "Possotomé",
+        "Abomey", "Bohicon", "Dassa-Zoumé", "Savalou", "Savé", "Glazoué", "Bantè", "Ouèssè", "Agbangnizoun", "Djidja", "Zogbodomey", "Za-Kpota", "Zagnanado", "Covè", "Ouinhi", "Kétou", "Pobè", "Sakété", "Adja-Ouèrè", "Itou-Takite",
+        "Parakou", "Djougou", "Natitingou", "Kandi", "Malanville", "Banikoara", "Nikki", "Bembèrèkè", "Tchaourou", "Bassila", "Copargo", "Ouaké", "Boukoumbé", "Tanguiéta", "Matéri", "Cobly", "Karimama", "Gogounou", "Segbana", "Sinendé", "Kalalé", "Péhunco", "Kérou", "Kouandé", "Birni", "Toucountouna"
+    ],
+    togo: [
+        "Lomé", "Tsévié", "Aného", "Tabligbo", "Vogan", "Assahoun", "Atakpamé", "Kpalimé", "Notsé", "Badou", "Agou",
+        "Sokodé", "Tchamba", "Sotouboua", "Kara", "Bafilo", "Bassar", "Niamtougou", "Dapaong", "Mango", "Mandouri"
+    ],
+    ivoire: [
+        "Abidjan (Cocody)", "Plateau", "Abobo", "Yopougon", "Grand-Bassam", "San-Pédro", "Dabou", "Aboisso",
+        "Yamoussoukro", "Bouaké", "Dimbokro", "Daoukro", "Man", "Daloa", "Gagnoa", "Soubré",
+        "Korhogo", "Ferkessédougou", "Odienné", "Boundiali", "Katiola", "Abengourou", "Bondoukou"
+    ],
+    nigeria: [
+        "Lagos", "Ibadan", "Abeokuta", "Akure", "Port Harcourt", "Benin City", "Calabar", "Warri",
+        "Abuja", "Kano", "Kaduna", "Sokoto", "Ilorin", "Jos", "Maiduguri", "Zaria",
+        "Enugu", "Onitsha", "Aba", "Owerri", "Minna", "Lokoja", "Makurdi"
+    ]
 };
 
 // Gestion de la sélection dynamique des villes
@@ -97,6 +112,7 @@ document.getElementById('eventForm').addEventListener('submit', function(e) {
     
     reader.readAsDataURL(file);
 });
+
 
 
 
