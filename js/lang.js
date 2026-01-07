@@ -80,24 +80,7 @@ const translations = {
 };
 // Ajoutez ces clés dans votre objet translations de lang.js
 
-const translations = {
-    fr: {
-        // ... vos clés existantes
-        btnDetails: "Voir détails",
-        modalLieu: "Lieu :",
-        modalDate: "Date :",
-        btnRegister: "S'inscrire / Plus d'infos",
-        modalDesc: "Ne manquez pas cet événement exceptionnel. Pour plus d'informations ou pour réserver votre place, cliquez sur le bouton ci-dessous."
-    },
-    en: {
-        // ... vos clés existantes
-        btnDetails: "View Details",
-        modalLieu: "Location:",
-        modalDate: "Date:",
-        btnRegister: "Register / More Info",
-        modalDesc: "Don't miss this exceptional event. For more information or to book your place, click the button below."
-    }
-};
+
 function switchLanguage(lang) {
     localStorage.setItem('selectedLang', lang);
     
