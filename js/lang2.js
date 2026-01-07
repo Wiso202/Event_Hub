@@ -92,40 +92,5 @@ function switchLanguage(lang) {
 }
 
 // Logique des villes (inchangée)
-const citiesByCountry = {
-    benin: ["Cotonou", "Porto-Novo", "Parakou"],
-    togo: ["Lomé", "Kara"],
-    ivoire: ["Abidjan", "Yamoussoukro"],
-    nigeria: ["Lagos", "Abuja"]
-};
 
-function initCityFilter() {
-    const countrySelect = document.getElementById('countrySelect');
-    const citySelect = document.getElementById('citySelect');
-    if (!countrySelect || !citySelect) return;
 
-    countrySelect.addEventListener('change', function() {
-        const country = this.value;
-        citySelect.innerHTML = '';
-        citySelect.disabled = false;
-        const defaultOpt = document.createElement('option');
-        defaultOpt.value = "";
-        defaultOpt.textContent = localStorage.getItem('selectedLang') === 'en' ? "Select a city" : "Choisir une ville";
-        citySelect.appendChild(defaultOpt);
-
-        if (citiesByCountry[country]) {
-            citiesByCountry[country].forEach(city => {
-                const opt = document.createElement('option');
-                opt.value = city.toLowerCase();
-                opt.textContent = city;
-                citySelect.appendChild(opt);
-            });
-        }
-    });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('selectedLang') || 'fr';
-    switchLanguage(savedLang);
-    initCityFilter();
-});
