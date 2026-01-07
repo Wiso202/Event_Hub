@@ -78,13 +78,13 @@
              <div class="container mb-5" data-aos="fade-up">
     <div class="card shadow-sm border-0 p-3 rounded-4">
         <div class="row g-3">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-text bg-white border-end-0"><i class="fa fa-search text-primary"></i></span>
                     <input type="text" id="searchInput" class="form-control border-start-0 ps-0" placeholder="Rechercher un événement..." data-key="searchPlaceholder">
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <select id="filterCountry" class="form-select">
                     <option value="" data-key="allCountries">Tous les pays</option>
                     <option value="benin">🇧🇯 Bénin</option>
@@ -93,7 +93,16 @@
                     <option value="nigeria">🇳🇬 Nigeria</option>
                 </select>
             </div>
-        
+             <div class="col-md-4">
+                    <select id="filterCategory" class="form-select">
+                        <option value="" data-key="allCategories">Toutes les catégories</option>
+                        <option value="Corporate & Business">Corporate & Business</option>
+                        <option value="Événements Privés">Événements Privés</option>
+                        <option value="Culture & Divertissement">Culture & Divertissement</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Caritatif">Caritatif</option>
+                    </select>
+                </div>
         </div>
     </div>
 </div>
@@ -195,5 +204,6 @@
      <script src="js/filters.js"></script>
 </body>
 </html>
+
 
 
