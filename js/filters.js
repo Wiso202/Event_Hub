@@ -1,59 +1,97 @@
 // js/filters.js
 
 function applyFilters() {
-    // 1. Récupération des valeurs
-    const searchVal = document.getElementById('searchInput').value.toLowerCase();
-    const countryVal = document.getElementById('filterCountry').value.toLowerCase();
-    const categoryVal = document.getElementById('filterCategory').value.toLowerCase();
+    // 1. Récupération des valeurs des éléments de filtrage
+    const searchInput = document.getElementById('searchInput');
+    const filterCountry = document.getElementById('filterCountry');
+    const filterCategory = document.getElementById('filterCategory');
 
-    // 2. Filtrage (allEvents est défini dans votre app.js)
+    // Sécurité au cas où les éléments n'existent pas sur la page
+    if (!searchInput || !filterCountry || !filterCategory) return;
+
+    const searchVal = searchInput.value.toLowerCase();
+    const countryVal = filterCountry.value.toLowerCase();
+    const categoryVal = filterCategory.value; // On garde la casse pour la catégorie
+
+    // 2. Filtrage (allEvents est la variable globale définie dans votre app.js)
     const filteredResults = allEvents.filter(event => {
-        const matchesName = event.nom.toLowerCase().includes(searchVal);
-        const matchesCountry = countryVal === "" || event.pays.toLowerCase() === countryVal;
-        const matchesCategory = categoryVal === "" || event.categorie === categoryVal;
-        return matchesName && matchesCountry && matchesCategory;
+        // Vérification par Nom ou Ville
+        const matchesSearch = event.Nom.toLowerCase().includes(searchVal) || 
+                             event.Ville.toLowerCase().includes(searchVal);
+        
+        // Vérification par Pays
+        const matchesCountry = countryVal === "" || (event.Pays && event.Pays.toLowerCase() === countryVal);
+        
+        // Vérification par Catégorie
+        const matchesCategory = categoryVal === "" || event.Categorie === categoryVal;
+
+        return matchesSearch && matchesCountry && matchesCategory;
     });
 
-    // 3. Gestion de l'affichage "Aucun résultat"
+    // 3. Gestion de l'affichage
     const grid = document.getElementById('eventsGrid');
+    if (!grid) return;
+
     if (filteredResults.length === 0) {
+        // Message si aucun résultat
         grid.innerHTML = `
             <div class="col-12 text-center py-5" data-aos="fade-up">
                 <i class="fa-solid fa-magnifying-glass fs-1 text-muted mb-3"></i>
                 <h3 class="fw-bold">Aucun résultat trouvé</h3>
                 <p class="text-muted">Essayez de modifier vos critères de recherche ou de choisir un autre pays.</p>
-                <button class="btn btn-outline-primary rounded-pill mt-3" onclick="resetFilters()">Réinitialiser les filtres</button>
+                <button class="btn btn-primary rounded-pill mt-3" onclick="resetFilters()">
+                    <i class="fa-solid fa-rotate-left me-2"></i>Réinitialiser les filtres
+                </button>
             </div>`;
-        document.getElementById('pagination').innerHTML = ''; // Cache la pagination
+        
+        // Cacher la pagination si elle existe
+        const pagination = document.getElementById('pagination');
+        if (pagination) pagination.innerHTML = ''; 
     } else {
-        // On utilise la même astuce : sauvegarde, affichage, puis restauration
+        // On utilise la technique du backup pour ne pas écraser définitivement allEvents
         const backupAllEvents = allEvents;
         allEvents = filteredResults;
-        displayPage(1); // Appel de la fonction originale de app.js
+        
+        // On appelle la fonction de rendu (venant de app.js)
+        if (typeof displayPage === "function") {
+            displayPage(1); 
+        } else if (typeof renderEvents === "function") {
+            renderEvents(allEvents);
+        }
+        
+        // On restaure la liste complète en mémoire
         allEvents = backupAllEvents;
     }
 }
 
-// Fonction pour vider les filtres rapidement
+/**
+ * Réinitialise tous les champs de recherche
+ */
 function resetFilters() {
-    document.getElementById('searchInput').value = '';
-    document.getElementById('filterCountry').value = '';
-    document.getElementById('filterCategory').value = '';
+    const searchInput = document.getElementById('searchInput');
+    const filterCountry = document.getElementById('filterCountry');
+    const filterCategory = document.getElementById('filterCategory');
+
+    if (searchInput) searchInput.value = '';
+    if (filterCountry) filterCountry.value = '';
+    if (filterCategory) filterCategory.value = '';
+    
     applyFilters();
 }
 
-// Initialisation des écouteurs
+/**
+ * Initialisation des écouteurs d'événements au chargement du DOM
+ */
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
     const filterCountry = document.getElementById('filterCountry');
     const filterCategory = document.getElementById('filterCategory');
 
+    // Ajout des écouteurs "Input" pour la recherche et "Change" pour les sélections
     if (searchInput) searchInput.addEventListener('input', applyFilters);
     if (filterCountry) filterCountry.addEventListener('change', applyFilters);
     if (filterCategory) filterCategory.addEventListener('change', applyFilters);
 });
-
-
 
 function showLegal(type) {
     const title = type === 'terms' ? "Conditions Générales d'Utilisation" : "Politique de Confidentialité";
@@ -90,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
 
 
 
