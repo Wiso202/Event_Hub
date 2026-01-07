@@ -96,7 +96,7 @@ function displayPage(page) {
                     <div class="d-flex align-items-center mb-4 text-muted small">
                         <i class="fa-solid fa-calendar text-primary me-2"></i>${eventDate}
                     </div>
-                    <button class="btn btn-primary w-100 rounded-pill fw-bold py-2 shadow-sm" onclick="showDetails(${index})" data-key="btnDetails
+                    <button class="btn btn-primary w-100 rounded-pill fw-bold py-2 shadow-sm" 
                             onclick='showDetails(${JSON.stringify(event).replace(/'/g, "&apos;")})'>
                         Voir Détails
                     </button>
@@ -187,6 +187,7 @@ function formatDate(dateStr) {
         year: 'numeric'
     });
 }
+
 
 
 
