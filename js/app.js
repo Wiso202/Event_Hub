@@ -96,8 +96,11 @@ function displayPage(page) {
                     <div class="d-flex align-items-center mb-4 text-muted small">
                         <i class="fa-solid fa-calendar text-primary me-2"></i>${eventDate}
                     </div>
-                    <button class="btn btn-outline-primary w-100 rounded-pill" onclick="showDetails(${index})" data-key="btnDetails">Voir détails</button>
-                   </div>
+                        <button class="btn btn-primary w-100 rounded-pill fw-bold py-2 shadow-sm" 
+                                onclick='showDetails(${JSON.stringify(event).replace(/'/g, "&apos;")})'>
+                            Voir Détails
+                        </button>
+                    </div>
             </div>
         `;
         grid.appendChild(card);
@@ -140,29 +143,38 @@ function renderPagination() {
 /**
  * Remplit et affiche le modal de détails
  */
-function showDetails(index) {
-    const event = allEvents[index];
-    const lang = localStorage.getItem('selectedLang') || 'fr';
+function showDetails(event) {
+    const modalContent = document.querySelector('#detailsModal .modal-body');
+    const cleanImageUrl = formatDriveUrl(event.imageUrl);
+    const eventDate = formatDate(event.date);
 
-    const modalBody = document.getElementById('modalBody');
-    modalBody.innerHTML = `
-        <div class="row g-4">
-            <div class="col-md-5">
-                <img src="${event.image}" class="img-fluid rounded-4 shadow-sm">
+    modalContent.innerHTML = `
+        <div class="row g-0">
+            <div class="col-lg-5">
+                <img src="${cleanImageUrl}" class="h-100 w-100" style="object-fit: cover; min-height: 350px;" onerror="this.src='https://via.placeholder.com/800x500?text=Image+Indisponible'">
             </div>
-            <div class="col-md-7">
-                <h2 class="fw-bold">${event.nom}</h2>
-                <p><strong>${lang === 'fr' ? 'Lieu' : 'Location'}:</strong> ${event.ville}, ${event.pays}</p>
-                <p><strong>${lang === 'fr' ? 'Catégorie' : 'Category'}:</strong> ${event.categorie}</p>
-                <p class="mt-3">${event.description || ''}</p>
-                <a href="${event.infoUrl}" target="_blank" class="btn btn-primary w-100 rounded-pill mt-4">
-                    ${lang === 'fr' ? "S'inscrire" : "Register"}
+            <div class="col-lg-7 p-4 p-md-5">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2">${event.categorie}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <h2 class="fw-bold text-dark mb-4">${event.nom}</h2>
+                <div class="space-y-3">
+                    <p><i class="fa-solid fa-map-location-dot text-primary me-2"></i> <strong>Lieu :</strong> ${event.ville}, ${event.pays}</p>
+                    <p><i class="fa-solid fa-calendar text-primary me-2"></i> <strong>Date :</strong> ${eventDate}</p>
+                    <p class="text-muted mt-4">Ne manquez pas cet événement exceptionnel. Pour plus d'informations ou pour réserver votre place, cliquez sur le bouton ci-dessous.</p>
+                </div>
+                <a href="${event.infoUrl}" target="_blank" class="btn btn-dark btn-lg w-100 rounded-pill mt-5 fw-bold shadow">
+                    <i class="fa-solid fa-paper-plane me-2"></i>S'inscrire / Plus d'infos
                 </a>
             </div>
         </div>
     `;
-    new bootstrap.Modal(document.getElementById('detailsModal')).show();
+
+    const myModal = new bootstrap.Modal(document.getElementById('detailsModal'));
+    myModal.show();
 }
+
 
 /**
  * Utilitaire pour formater proprement la date 
@@ -176,6 +188,7 @@ function formatDate(dateStr) {
         year: 'numeric'
     });
 }
+
 
 
 
