@@ -148,6 +148,10 @@ function showDetails(event) {
     const cleanImageUrl = formatDriveUrl(event.imageUrl);
     const eventDate = formatDate(event.date);
 
+    // Préparation du lien WhatsApp
+    const whatsappMsg = encodeURIComponent(`Salut ! Regarde cet événement : ${event.nom} à ${event.ville}. Plus d'infos ici : ${event.infoUrl}`);
+    const whatsappUrl = `https://wa.me/?text=${whatsappMsg}`;
+
     modalContent.innerHTML = `
         <div class="row g-0">
             <div class="col-lg-5">
@@ -162,9 +166,19 @@ function showDetails(event) {
                 <div class="space-y-3">
                     <p><i class="fa-solid fa-map-location-dot text-primary me-2"></i> <strong>Lieu :</strong> ${event.ville}, ${event.pays}</p>
                     <p><i class="fa-solid fa-calendar text-primary me-2"></i> <strong>Date :</strong> ${eventDate}</p>
-                    <p class="text-muted mt-4">Ne manquez pas cet événement exceptionnel. Pour plus d'informations ou pour réserver votre place, cliquez sur le bouton ci-dessous.</p>
+                    <p class="text-muted mt-4">Ne manquez pas cet événement exceptionnel.</p>
                 </div>
-                <a href="${event.infoUrl}" target="_blank" class="btn btn-dark btn-lg w-100 rounded-pill mt-5 fw-bold shadow">
+                
+                <div class="mt-4 d-flex gap-2">
+                    <button onclick='addToCalendar(${JSON.stringify(event).replace(/'/g, "&apos;")})' class="btn btn-outline-primary rounded-pill flex-grow-1">
+                        <i class="fa-solid fa-calendar-plus me-2"></i>Agenda
+                    </button>
+                    <a href="${whatsappUrl}" target="_blank" class="btn btn-outline-success rounded-pill flex-grow-1">
+                        <i class="fa-brands fa-whatsapp me-2"></i>Partager
+                    </a>
+                </div>
+
+                <a href="${event.infoUrl}" target="_blank" class="btn btn-dark btn-lg w-100 rounded-pill mt-3 fw-bold shadow">
                     <i class="fa-solid fa-paper-plane me-2"></i>S'inscrire / Plus d'infos
                 </a>
             </div>
@@ -174,7 +188,6 @@ function showDetails(event) {
     const myModal = new bootstrap.Modal(document.getElementById('detailsModal'));
     myModal.show();
 }
-
 
 /**
  * Utilitaire pour formater proprement la date 
@@ -188,6 +201,21 @@ function formatDate(dateStr) {
         year: 'numeric'
     });
 }
+/**
+ * Génère un lien Google Calendar et ouvre un nouvel onglet
+ */
+function addToCalendar(event) {
+    const startDate = new Date(event.date).toISOString().replace(/-|:|\.\d\d\d/g, "");
+    const title = encodeURIComponent(event.nom);
+    const location = encodeURIComponent(`${event.ville}, ${event.pays}`);
+    const details = encodeURIComponent(`Retrouvez plus d'informations ici : ${event.infoUrl}`);
+    
+    // Format Google Calendar : dates=YYYYMMDDTHHMMSSZ/YYYYMMDDTHHMMSSZ
+    const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${startDate}&details=${details}&location=${location}&sf=true&output=xml`;
+    
+    window.open(googleCalendarUrl, '_blank');
+}
+
 
 
 
