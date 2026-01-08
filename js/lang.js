@@ -27,6 +27,10 @@ const translations = {
         modalTime: "Heure:",
         modalDesc: "Vivez une expérience musicale unique réunissant les meilleurs artistes de la sous-région dans un cadre festif.",
         btnRegister: "S'inscrire / Plus d'infos",
+
+        btnAll: "Tous",
+        btnToday: "Aujourd'hui",
+        btnWeekend: "Ce Week-end",
         
         // Footer
         footerDesc: "La première plateforme de centralisation des événements en Afrique de l'Ouest. Simplifiez votre recherche, amplifiez votre visibilité.",
@@ -66,6 +70,10 @@ const translations = {
         modalTime: "Time:",
         modalDesc: "Experience a unique musical gathering featuring the region's best artists in a festive atmosphere.",
         btnRegister: "Register / More Info",
+
+        btnAll: "All",
+        btnToday: "Today",
+        btnWeekend: "This Weekend",
         
         // Footer
         footerDesc: "The leading event centralization platform in West Africa. Simplify your search, boost your visibility.",
