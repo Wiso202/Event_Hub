@@ -37,6 +37,45 @@
             top: 20px; /* Distance du haut de l'écran */
             transition: all 0.5s ease;
         }
+        /* Variables pour le Dark Mode */
+[data-theme="dark"] {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-color: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border-color: #334155;
+    --navbar-bg: rgba(15, 23, 42, 0.95);
+}
+
+/* Application des styles */
+body.dark-mode {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+}
+
+body.dark-mode .card, 
+body.dark-mode .tab-content,
+body.dark-mode .modal-content {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+
+body.dark-mode .text-muted, 
+body.dark-mode .form-text {
+    color: var(--text-muted) !important;
+}
+
+body.dark-mode .navbar {
+    background: var(--navbar-bg) !important;
+}
+
+body.dark-mode .form-control, 
+body.dark-mode .form-select {
+    background-color: #0f172a !important;
+    border-color: var(--border-color) !important;
+    color: white !important;
+}
     </style>
 </head>
 <body>
@@ -61,7 +100,11 @@
                             <li><a class="dropdown-item" href="#" onclick="switchLanguage('en')">🇳🇬 English</a></li>
                         </ul>
                     </li>
-
+                    <li class="nav-item dropdown ms-lg-3">
+                      <button id="theme-toggle" class="btn btn-link text-white ms-2 shadow-none">
+                            <i class="fa-solid fa-moon fs-5" id="theme-icon"></i>
+                    </button>
+                    </li>    
                     <li class="nav-item ms-lg-3">
                         <a class="btn btn-primary px-4 rounded-pill fw-bold" href="publier.html" data-key="navPublish">Publier un Event</a>
                     </li>
@@ -202,6 +245,7 @@
     <script src="js/filters.js"></script>
 </body>
 </html>
+
 
 
 
