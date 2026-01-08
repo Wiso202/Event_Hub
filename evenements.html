@@ -122,13 +122,13 @@ body.dark-mode .form-select {
              <div class="container mb-5" data-aos="fade-up">
     <div class="card shadow-sm border-0 p-3 rounded-4">
         <div class="row g-3">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="input-group">
                     <span class="input-group-text bg-white border-end-0"><i class="fa fa-search text-primary"></i></span>
                     <input type="text" id="searchInput" class="form-control border-start-0 ps-0" placeholder="Rechercher un événement..." data-key="searchPlaceholder">
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <select id="filterCountry" class="form-select">
                     <option value="" data-key="allCountries">Tous les pays</option>
                     <option value="benin">🇧🇯 Bénin</option>
@@ -137,7 +137,7 @@ body.dark-mode .form-select {
                     <option value="nigeria">🇳🇬 Nigeria</option>
                 </select>
             </div>
-             <div class="col-md-4">
+             <div class="col-md-3">
                     <select id="filterCategory" class="form-select">
                         <option value="" data-key="allCategories">Toutes les catégories</option>
                         <option value="Corporate & Business">Corporate & Business</option>
@@ -147,6 +147,11 @@ body.dark-mode .form-select {
                         <option value="Caritatif">Caritatif</option>
                     </select>
                 </div>
+            <div class="d-flex justify-content-center col-md-3">
+                <button class="btn btn-sm btn-dark rounded-pill px-3" onclick="filterByTime('all')" data-key="btnAll">Tous</button>
+                <button class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="filterByTime('today')" data-key="btnToday">Aujourd'hui</button>
+                <button class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="filterByTime('weekend')" data-key="btnWeekend">Ce Week-end</button>
+            </div>
         </div>
     </div>
 </div>
@@ -260,8 +265,10 @@ body.dark-mode .form-select {
     <script src="js/maintenance.js"></script> 
      <script src="js/filters.js"></script>
     <script src="js/theme.js"></script>
+    <script src="js/features.js"></script>
 </body>
 </html>
+
 
 
 
