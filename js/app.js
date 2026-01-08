@@ -188,6 +188,51 @@ function formatDate(dateStr) {
         year: 'numeric'
     });
 }
+/** * AJOUT DES FONCTIONNALITÉS WHATSAPP ET CALENDRIER 
+ * (Ajouté à la fin sans modifier le code original ci-dessus)
+ */
+
+// On conserve une référence à la fonction originale définie plus haut dans ce fichier
+const originalShowDetails = window.showDetails;
+
+// On redéfinit showDetails pour y ajouter nos nouvelles fonctions
+window.showDetails = function(index) {
+    // 1. Appeler la fonction originale pour afficher la modale avec vos styles
+    originalShowDetails(index);
+
+    // 2. Récupérer les données de l'événement en cours
+    const event = allEvents[index];
+    const lang = localStorage.getItem('selectedLang') || 'fr';
+    
+    // 3. Préparer les liens dynamiques
+    const eventTitle = encodeURIComponent(event.nom);
+    const eventDate = event.date ? event.date.replace(/-/g, '') : "";
+    const calendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&dates=${eventDate}/${eventDate}&details=Retrouvez plus d'infos sur EventHub&location=${encodeURIComponent(event.ville)}`;
+    
+    const waText = encodeURIComponent(`${lang === 'fr' ? 'Regarde cet événement' : 'Check out this event'} : ${event.nom} à ${event.ville}. Plus d'infos ici : ${window.location.href}`);
+    const waUrl = `https://api.whatsapp.com/send?text=${waText}`;
+
+    // 4. Injection visuelle des boutons dans la modale déjà ouverte
+    // On utilise un petit délai pour être sûr que le HTML original est bien injecté
+    setTimeout(() => {
+        const modalBodyContent = document.querySelector('#modalBody .col-md-7');
+        
+        if (modalBodyContent) {
+            const buttonHtml = `
+                <div class="d-flex gap-2 mt-3 pt-3 border-top" id="ext-actions">
+                    <a href="${waUrl}" target="_blank" class="btn btn-success flex-grow-1 rounded-pill shadow-sm">
+                        <i class="fa-brands fa-whatsapp me-2"></i>WhatsApp
+                    </a>
+                    <a href="${calendarUrl}" target="_blank" class="btn btn-outline-danger flex-grow-1 rounded-pill shadow-sm">
+                        <i class="fa-solid fa-calendar-plus me-2"></i> ${lang === 'fr' ? 'Calendrier' : 'Calendar'}
+                    </a>
+                </div>
+            `;
+            // On ajoute les boutons à la fin de la section texte de la modale
+            modalBodyContent.insertAdjacentHTML('beforeend', buttonHtml);
+        }
+    }, 200);
+};
 
 
 
