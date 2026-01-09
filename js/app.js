@@ -33,18 +33,8 @@ async function fetchEvents() {
 
         allEvents = await response.json();
         
-       // --- NOUVEAU : FILTRE DES ÉVÉNEMENTS PASSÉS ---
-        const today = new Date();
-        today.setHours(0, 0, 0, 0); // On garde uniquement la date du jour sans l'heure
-
-        allEvents = data.filter(event => {
-            const eventDate = new Date(event.date);
-            return eventDate >= today; // On ne garde que si la date est aujourd'hui ou dans le futur
-        });
-        // ----------------------------------------------
-
         if (allEvents.length === 0) {
-            grid.innerHTML = '<p class="text-center w-100">Aucun événement à venir pour le moment.</p>';
+            grid.innerHTML = '<p class="text-center w-100">Aucun événement disponible pour le moment.</p>';
         } else {
             displayPage(1);
         }
